@@ -57,6 +57,32 @@ export default function App() {
       if (getOccurrence(localActions, "CO") === 4) {
         return;
       }
+    } else if (type === "CLB") {
+      if (getOccurrence(localActions, "RLB") === 1) {
+        var localActions = [];
+        for (var i = 0; i < actions.length; i++) {
+          if (actions[i] !== "RLB") {
+            localActions.push(actions[i]);
+          }
+        }
+        setActions(localActions);
+      }
+      if (getOccurrence(localActions, "CLB") === 1) {
+        return; 
+      }
+    } else if (type === "RLB") {
+      if (getOccurrence(localActions, "CLB") === 1) {
+        var localActions = [];
+        for (var i = 0; i < actions.length; i++) {
+          if (actions[i] !== "CLB") {
+            localActions.push(actions[i]);
+          }
+        }
+        setActions(localActions);
+      }
+      if (getOccurrence(localActions, "RLB") === 1) {
+        return;
+      }
     }
     localActions.push(type);
     setActions(localActions);
@@ -70,6 +96,7 @@ export default function App() {
 
   const clear = () => {
     setActions([]);
+    setEndgame("");
   }
 
   return (
