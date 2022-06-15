@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from '
 export default function App() {
   const [points, setPoints] = useState(0);
   const [actions, setActions] = useState([]);
+  const [endgame, setEndgame] = useState("");
 
   useEffect(() => {
     updatePoints();
@@ -22,13 +23,41 @@ export default function App() {
         localPoints -= 10;
       } else if (actions[i] === "RC") {
         localPoints -= 1000;
+      } else if (actions[i] === "MG") {
+        localPoints += 13;
+      } else if (actions[i] === "RLB") {
+        localPoints += 3;
+      } else if (actions[i] === "CLB") {
+        localPoints += 15;
+      } else if (actions[i] === "CO") {
+        localPoints += 3;
       }
     }
     setPoints(localPoints);
   }
 
+  function getOccurrence(array, value) {
+    var count = 0;
+    array.forEach((v) => (v === value && count++));
+    return count; 
+  }
+
+  const updateEndgame = (bar) => {
+    setEndgame(bar);
+    addSimpleScoring(bar);
+  }
+
   const addSimpleScoring = (type) => {
     var localActions = [...actions];
+    if (type === "MG") {
+      if (getOccurrence(localActions, "MG") === 3) {
+        return;
+      }
+    } else if (type === "CO") {
+      if (getOccurrence(localActions, "CO") === 4) {
+        return;
+      }
+    }
     localActions.push(type);
     setActions(localActions);
   }
@@ -37,6 +66,10 @@ export default function App() {
     var localActions = [...actions];
     localActions.pop();
     setActions(localActions);
+  }
+
+  const clear = () => {
+    setActions([]);
   }
 
   return (
@@ -51,23 +84,35 @@ export default function App() {
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("WCB")}>
                 <Text>Wrong Color Ball</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              </TouchableOpacity >
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("MG")}>
                 <Text>Mid Goal</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("CO")}>
                 <Text>Cross Obstacle</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button}>
                 <Text>Enter Lab Nook</Text>
               </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={[styles.button, { width: '48%' }]}>
-                  <Text>Reach Low Bar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, { width: '48%' }]}>
-                  <Text>Climb low Bar</Text>
-                </TouchableOpacity>
+                {endgame == "RLB" ? (
+                  <TouchableOpacity style={[styles.button, { width: '48%', backgroundColor: '#aec6cf' }]} onPress={() => updateEndgame("RLB")}>
+                      <Text>Reach low Bar</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={[styles.button, { width: '48%' }]} onPress={() => updateEndgame("RLB")}>
+                      <Text>Reach low Bar</Text>
+                  </TouchableOpacity>
+                )}
+                {endgame == "CLB" ? (
+                  <TouchableOpacity style={[styles.button, { width: '48%', backgroundColor: '#aec6cf' }]} onPress={() => updateEndgame("CLB")}>
+                    <Text>Climb low Bar</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={[styles.button, { width: '48%' }]} onPress={() => updateEndgame("CLB")}>
+                    <Text>Climb low Bar</Text>
+                  </TouchableOpacity>
+                )}
               </View>
               <TouchableOpacity style={styles.button}>
                 <Text>Human Player Shot</Text>
@@ -80,7 +125,7 @@ export default function App() {
               <TouchableOpacity style={styles.button} onPress={() => undo()}>
                 <Text>Undo</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => setActions([])}>
+              <TouchableOpacity style={styles.button} onPress={() => clear()}>
                 <Text>Clear</Text>
               </TouchableOpacity>
             </View>
