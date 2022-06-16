@@ -217,8 +217,23 @@ export default function App() {
           </View>
         </View>
         <Modal animationInTiming={50} animationIn='fadeIn' animationOutTiming={50} animationOut='fadeOut' style={{ alignItems: 'center' }} isVisible={isModalVisible}>
+          <TouchableOpacity style={{ position: 'absolute', left: 63, top: 45, zIndex: 1 }} onPress={() => setModalVisible(false)}>
+            <Text style={{ fontSize: 20 }}>X</Text>
+          </TouchableOpacity>
           <View style={styles.ModalContent}>
-
+            <View style={{ width: '50%', borderRightWidth: 3, borderColor: 'grey' }}>
+                <Text style={styles.font}>Stats</Text>
+            </View>
+            <View style={{ width: '50%', paddingLeft: 15 }}>
+              <Text style={styles.font}>Events</Text>
+              <View>
+                {
+                  actions.map((action, i) => (
+                    <Text key={i}>{action}</Text>
+                  ))
+                }
+              </View>
+            </View>
           </View>
         </Modal>
       </View>
@@ -263,9 +278,14 @@ const styles = StyleSheet.create({
   },
   ModalContent: {
     flex: 0.9,
-    width: 900,
+    width: "90%",
     backgroundColor: 'white',
     borderRadius: 15,
-    padding: 20
+    padding: 20,
+    flexDirection: 'row'
   },
+  font: {
+    fontFamily: 'Zapfino',
+    fontSize: 25
+  }
 });
