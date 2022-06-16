@@ -83,6 +83,13 @@ export default function App() {
 
       }
       if (getOccurrence(localActions, "CLB") === 1) {
+        var localActions = [];
+        for (var i = 0; i < actions.length; i++) {
+          if (actions[i] !== "CLB") {
+            localActions.push(actions[i]);
+          }
+        }
+        setActions(localActions);
         setEndgame("");
         return; 
       }
@@ -98,6 +105,13 @@ export default function App() {
         
       }
       if (getOccurrence(localActions, "RLB") === 1) {
+        var localActions = [];
+        for (var i = 0; i < actions.length; i++) {
+          if (actions[i] !== "RLB") {
+            localActions.push(actions[i]);
+          }
+        }
+        setActions(localActions);
         setEndgame("");
         return;
       }
