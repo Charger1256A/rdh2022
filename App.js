@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native';
 import Modal from "react-native-modal";
+
+const ACCY = {
+  "CCB": "Correct Color Ball",
+  "WCB": "Wrong Color Ball",
+  "F": "Foul",
+  "YC": "Yellow Card",
+  "RC": "Red Card",
+  "MG": "Mid Goal",
+  "RLB": "Reach Low Bar",
+  "CLB": "Climb Low bar",
+  "CO": "Cross Obstacle",
+  "ELK": "Enter Lab Nook",
+  "HPS": "Human Player Shot",
+}
 
 export default function App() {
   const [points, setPoints] = useState(0);
@@ -226,13 +240,15 @@ export default function App() {
             </View>
             <View style={{ width: '50%', paddingLeft: 15 }}>
               <Text style={styles.font}>Events</Text>
-              <View>
+              <ScrollView>
                 {
                   actions.map((action, i) => (
-                    <Text key={i}>{action}</Text>
+                    <View key={i} style={styles.border}>
+                      <Text key={i}>{i + 1}. {ACCY[action]}</Text>
+                    </View>
                   ))
                 }
-              </View>
+              </ScrollView>
             </View>
           </View>
         </Modal>
@@ -287,5 +303,11 @@ const styles = StyleSheet.create({
   font: {
     fontFamily: 'Zapfino',
     fontSize: 25
-  }
+  },
+  border: {
+    borderWidth: 2.5,
+    borderColor: '#d4d4d4',
+    margin: 3,
+    padding: 4
+  },
 });
