@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import Modal from "react-native-modal";
 
 export default function App() {
   const [points, setPoints] = useState(0);
   const [actions, setActions] = useState([]);
   const [endgame, setEndgame] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     updatePoints();
@@ -157,7 +159,7 @@ export default function App() {
                   </TouchableOpacity>
                 )}
               </View>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("HPS")}>
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("ELK")} onPress={() => addSimpleScoring("HPS")}>
                 <Text>Human Player Shot</Text>
               </TouchableOpacity>
             </View>
@@ -178,6 +180,11 @@ export default function App() {
               <Text style={styles.pointsText}>Points: {points < 0 ? 0 : points}</Text>
             </View>
           </View>
+          <View style={{ width: "100%", alignItems: 'center' }}>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(true)}>
+              <Text style={{ color: "white" }}>Get Match Data for Team</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={{ width: '45%' }}>
           <View style={{ width: "100%" }}>
@@ -195,6 +202,11 @@ export default function App() {
             </View>
           </View>
         </View>
+        <Modal animationInTiming={50} animationIn='fadeIn' animationOutTiming={50} animationOut='fadeOut' style={{ alignItems: 'center' }} isVisible={isModalVisible}>
+          <View style={styles.ModalContent}>
+
+          </View>
+        </Modal>
       </View>
     </KeyboardAvoidingView>
   );
@@ -218,6 +230,14 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderRadius: 10,
   },
+  modalButton: {
+    width: '40%',
+    alignItems: 'center',
+    backgroundColor: '#4287f5',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 50,
+  },
   points: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -226,5 +246,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: 'yellow',
     fontSize: 75
+  },
+  ModalContent: {
+    flex: 0.9,
+    width: 900,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 20
   },
 });
