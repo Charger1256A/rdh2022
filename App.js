@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   modalButton: {
-    width: '40%',
+    width: '50%',
     alignItems: 'center',
     backgroundColor: '#4287f5',
     padding: 10,
