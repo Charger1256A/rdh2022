@@ -31,6 +31,10 @@ export default function App() {
         localPoints += 15;
       } else if (actions[i] === "CO") {
         localPoints += 3;
+      } else if (actions[i] === "ELK") {
+        localPoints += 5;
+      } else if (actions[i] === "HPS") {
+        localPoints += 10;
       }
     }
     setPoints(localPoints);
@@ -57,6 +61,14 @@ export default function App() {
       if (getOccurrence(localActions, "CO") === 4) {
         return;
       }
+    } else if (type === "ELK") {
+      if (getOccurrence(localActions, "ELK") === 1) {
+        return;
+      }
+    } else if (type === "HPS") {
+      if (getOccurrence(localActions, "HPS") === 1) {
+        return;
+      }
     } else if (type === "CLB") {
       if (getOccurrence(localActions, "RLB") === 1) {
         var localActions = [];
@@ -65,9 +77,11 @@ export default function App() {
             localActions.push(actions[i]);
           }
         }
-        setActions(localActions);
+        setActions(localActions);    
+
       }
       if (getOccurrence(localActions, "CLB") === 1) {
+        setEndgame("");
         return; 
       }
     } else if (type === "RLB") {
@@ -79,8 +93,10 @@ export default function App() {
           }
         }
         setActions(localActions);
+        
       }
       if (getOccurrence(localActions, "RLB") === 1) {
+        setEndgame("");
         return;
       }
     }
@@ -118,7 +134,7 @@ export default function App() {
               <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("CO")}>
                 <Text>Cross Obstacle</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("ELK")}>
                 <Text>Enter Lab Nook</Text>
               </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
@@ -141,7 +157,7 @@ export default function App() {
                   </TouchableOpacity>
                 )}
               </View>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("HPS")}>
                 <Text>Human Player Shot</Text>
               </TouchableOpacity>
             </View>
