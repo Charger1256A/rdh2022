@@ -145,6 +145,7 @@ export default function App() {
     setEndgame("");
   }
 
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <View style={styles.container}>
@@ -187,7 +188,7 @@ export default function App() {
                   </TouchableOpacity>
                 )}
               </View>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("ELK")} onPress={() => addSimpleScoring("HPS")}>
+              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("HPS")}>
                 <Text>Human Player Shot</Text>
               </TouchableOpacity>
             </View>
@@ -237,6 +238,16 @@ export default function App() {
           <View style={styles.ModalContent}>
             <View style={{ width: '50%', borderRightWidth: 3, borderColor: 'grey' }}>
                 <Text style={styles.font}>Stats</Text>
+                <Text>Correct Color Ball: {getOccurrence(actions, "CCB")}</Text>
+                <Text>Wrong Color Ball: {getOccurrence(actions, "WCB")}</Text>
+                <Text>Mid Goal: {getOccurrence(actions, "MG")}</Text>
+                <Text>Cross Obstacle: {getOccurrence(actions, "CO")}</Text>
+                <Text>Enter Lab Nook: {getOccurrence(actions, "CCB") === 1 ? <Text>true</Text> : <Text>false</Text>}</Text>
+                <Text>Bar: {getOccurrence(actions, "RLB") === 1 ? <Text>Reach</Text> : getOccurrence(actions, "CLB") === 1 ? <Text>Climb</Text> : <Text>N/A</Text>}</Text>
+                <Text>Human Player Shot: {getOccurrence(actions, "HPS") === 1 ? <Text>true</Text> : <Text>false</Text>}</Text>
+                <Text>Foul: {getOccurrence(actions, "F")}</Text>
+                <Text>Yellow Card: {getOccurrence(actions, "YC")}</Text>
+                <Text>Red Card: {getOccurrence(actions, "RC")}</Text>
             </View>
             <View style={{ width: '50%', paddingLeft: 15 }}>
               <Text style={styles.font}>Events</Text>
