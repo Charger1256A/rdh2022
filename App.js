@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import Modal from "react-native-modal";
 
 const ACCY = {
@@ -159,19 +160,19 @@ export default function App() {
           <View style={{ width: "100%" }}>
             <Text style={{ fontWeight: 'bold' }}>Scoring</Text>
             <View>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("CCB")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#00FFF2" }]} onPress={() => addSimpleScoring("CCB")}>
                 <Text>Correct Color Ball</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("WCB")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#00FF42" }]} onPress={() => addSimpleScoring("WCB")}>
                 <Text>Wrong Color Ball</Text>
               </TouchableOpacity >
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("MG")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#FFFB00" }]} onPress={() => addSimpleScoring("MG")}>
                 <Text>Mid Goal</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("CO")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#FF6C00" }]} onPress={() => addSimpleScoring("CO")}>
                 <Text>Cross Obstacle</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("ELK")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#F800FF" }]} onPress={() => addSimpleScoring("ELK")}>
                 <Text>Enter Lab Nook</Text>
               </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
@@ -194,18 +195,18 @@ export default function App() {
                   </TouchableOpacity>
                 )}
               </View>
-              <TouchableOpacity style={styles.button} onPress={() => addSimpleScoring("HPS")}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#FF005A" }]} onPress={() => addSimpleScoring("HPS")}>
                 <Text>Human Player Shot</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={{ width: "100%" }}>
             <Text style={{ fontWeight: 'bold' }}>Management</Text>
-            <View>
-              <TouchableOpacity style={styles.button} onPress={() => undo()}>
+            <View>   
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#9E00FF" }]} onPress={() => undo()}>
                 <Text>Undo</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => clear()}>
+              <TouchableOpacity style={[styles.button, {backgroundColor: "#008DFF" }]} onPress={() => clear()}>
                 <Text>Clear</Text>
               </TouchableOpacity>
             </View>
