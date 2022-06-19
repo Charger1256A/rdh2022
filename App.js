@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import Modal from "react-native-modal";
 
 const ACCY = {
@@ -21,7 +21,10 @@ export default function App() {
   const [actions, setActions] = useState([]);
   const [endgame, setEndgame] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
-
+  const [teamNumber, setTeamNumber] = useState("");
+  const [matchNumber, setMatchNumber] = useState("");
+  
+  
   useEffect(() => {
     updatePoints();
   }, [actions])
@@ -136,6 +139,9 @@ export default function App() {
 
   const undo = () => {
     var localActions = [...actions];
+    if (localActions[localActions.length - 1] === "CLB" || localActions[localActions.length - 1] === "RLB") {
+      setEndgame("")
+    }
     localActions.pop();
     setActions(localActions);
   }
@@ -147,7 +153,7 @@ export default function App() {
 
 
   return (
-    <KeyboardAvoidingView behavior="position" enabled>
+    <KeyboardAvoidingView behavior="view" enabled>
       <View style={styles.container}>
         <View style={{ width: '45%' }}>
           <View style={{ width: "100%" }}>
@@ -229,6 +235,28 @@ export default function App() {
                 <Text>Red Card</Text>
               </TouchableOpacity>
             </View>
+          </View>
+          <View style={{ width: "100%" }}>
+            <Text style={{ fontWeight: 'bold' }}>Team Information</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <TextInput
+                  style={styles.input}
+                  value={teamNumber}
+                  onChangeText={setTeamNumber}
+                  placeholder="Team number"
+                />
+                <TextInput
+                  style={styles.input}
+                  value={matchNumber}
+                  onChangeText={setMatchNumber}
+                  placeholder="Match number"
+                />
+              </View>
+              <View style={{ alignItems: 'center'}}>
+                <TouchableOpacity style={styles.modalButton} onPress={() => alert("submit")}>
+                  <Text style={{color: 'white'}}>Submit</Text>
+                </TouchableOpacity>
+              </View>
           </View>
         </View>
         <Modal animationInTiming={50} animationIn='fadeIn' animationOutTiming={50} animationOut='fadeOut' style={{ alignItems: 'center' }} isVisible={isModalVisible}>
@@ -320,5 +348,12 @@ const styles = StyleSheet.create({
     borderColor: '#d4d4d4',
     margin: 3,
     padding: 4
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    width: '45%',
   },
 });
