@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modal from "react-native-modal";
+import axios from 'axios';
 
 const ACCY = {
   "CCB": "Correct Color Ball",
@@ -150,6 +151,13 @@ export default function App() {
   const clear = () => {
     setActions([]);
     setEndgame("");
+    setTeamNumber("");
+    setMatchNumber("");
+  }
+
+  const uploadData = async () => {
+    const response = await axios.post('https://rdh-2022.herokuapp.com/data/upload', { actions: JSON.stringify(actions), matchNumber: matchNumber, teamNumber: teamNumber, points: points });
+    clear();
   }
 
 
@@ -254,7 +262,7 @@ export default function App() {
                 />
               </View>
               <View style={{ alignItems: 'center'}}>
-                <TouchableOpacity style={styles.modalButton} onPress={() => alert("submit")}>
+                <TouchableOpacity style={styles.modalButton} onPress={() => uploadData()}>
                   <Text style={{color: 'white'}}>Submit</Text>
                 </TouchableOpacity>
               </View>
