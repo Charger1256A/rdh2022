@@ -45,13 +45,13 @@ export default function App() {
       } else if (actions[i] === "RC") {
         localPoints -= 1000;
       } else if (actions[i] === "MG") {
-        localPoints += 13;
+        localPoints += 12;
       } else if (actions[i] === "RLB") {
-        localPoints += 3;
+        localPoints += 5;
       } else if (actions[i] === "CLB") {
         localPoints += 15;
       } else if (actions[i] === "CO") {
-        localPoints += 3;
+        localPoints += 2;
       } else if (actions[i] === "ELK") {
         localPoints += 5;
       } else if (actions[i] === "HPS") {
@@ -179,9 +179,6 @@ export default function App() {
               </TouchableOpacity>
               <TouchableOpacity style={[styles.button, {backgroundColor: "#FF6C00" }]} onPress={() => addSimpleScoring("CO")}>
                 <Text>Cross Obstacle</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, {backgroundColor: "#F800FF" }]} onPress={() => addSimpleScoring("ELK")}>
-                <Text>Enter Lab Nook</Text>
               </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
                 {endgame == "RLB" ? (
